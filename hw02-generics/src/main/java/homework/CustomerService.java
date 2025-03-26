@@ -4,15 +4,14 @@ package homework;
 import java.util.Optional;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.NavigableMap;
 import java.util.AbstractMap;
 
 public class CustomerService {
 
-    // важно подобрать подходящую Map-у, посмотрите на редко используемые методы, они тут полезны
-    private final TreeMap<Customer, String> namesByCustomer = new TreeMap<>();
+    private final NavigableMap<Customer, String> namesByCustomer = new TreeMap<>();
 
     public Map.Entry<Customer, String> getSmallest() {
-        // Возможно, чтобы реализовать этот метод, потребуется посмотреть как Map.Entry сделан в jdk
         Map.Entry<Customer, String> entry = namesByCustomer.firstEntry();
         return copy(entry);
     }
