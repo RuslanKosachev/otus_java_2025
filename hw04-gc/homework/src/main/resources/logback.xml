@@ -1,0 +1,48 @@
+<configuration scan="true" scanPeriod="10 seconds">
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="APP" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/app.log</file>
+        <encoder>
+            <pattern>%date %level [%thread] [%file:%line] %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/archive/app-%d{yyyy-MM-dd}.%i.zip</fileNamePattern>
+            <!-- each file should be at most 1MB, keep 60 days worth of history, but at most 20MB -->
+            <maxFileSize>1MB</maxFileSize>
+            <maxHistory>60</maxHistory>
+            <totalSizeCap>10MB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="APP_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/err.log</file>
+        <encoder>
+            <pattern>%date %level [%thread] [%file:%line] %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/archive/err-%d{yyyy-MM-dd}.%i.zip</fileNamePattern>
+            <!-- each file should be at most 1MB, keep 60 days worth of history, but at most 20MB -->
+            <maxFileSize>1MB</maxFileSize>
+            <maxHistory>60</maxHistory>
+            <totalSizeCap>10MB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="APP" />
+        <appender-ref ref="APP_ERROR" />
+    </root>
+</configuration>
