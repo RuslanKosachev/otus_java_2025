@@ -1,15 +1,11 @@
 package ru.otus.aop.proxy;
 
-import jdk.jfr.Description;
-import ru.otus.aop.proxy.annotations.Log;
-
-public interface TestLoggingInterface {
-
-    @Description("Test")
+public interface ProxyCalcI {
     void calculation(int param);
 
-    @Log
     void calculation(int paramX, int paramY);
 
     void calculation(int paramX, int paramY, int paramZ);
+
+    void calculation(int paramX, int paramY, long paramZ);
 }
